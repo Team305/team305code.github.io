@@ -251,10 +251,10 @@ void main(void)
                 L0 = lightData[0] << 8 | lightData[1];
                 
                 //Motor goes backwards
-                //MotorReverse();
+                MotorReverse();
                 
                 //Reads the sensors
-                //t1 = I2C2_Read1ByteRegister(0x4C, 0x00);
+                t1 = I2C2_Read1ByteRegister(0x4C, 0x00);
                 lightBytes[0] = I2C2_Read1ByteRegister(0x39, 0x95);  // data low bytes
                 lightBytes[1] = I2C2_Read1ByteRegister(0x39, 0x96); //data high bytes
                 lightData[0] = I2C2_Read1ByteRegister(0x39, 0xAD);  // data low bytes, low light 
@@ -262,14 +262,14 @@ void main(void)
                 L1 = lightData[0] << 8 | lightData[1];
                 
                 //Motor goes forwards to the origin
-                //MotorForward();
+                MotorForward();
                 
                 //Averages the temperatures and light
-                //tAvg = ((t0 + t1) / 2);
+                tAvg = ((t0 + t1) / 2);
                 LAvg = ((L0 + L1) / 2);
                 
                 //Checks the error for the temperature. If it's too high, run the tests for temperature again to confirm
-                //pidError = ErrorCheck(tAvg);
+                pidError = ErrorCheck(tAvg);
                 
                 printf("Light Sensed: %d nm; \r", LAvg);
             }
